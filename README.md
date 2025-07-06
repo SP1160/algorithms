@@ -4,3 +4,4 @@
 
 - [**Линейный поиск**](./linearSearch.js)
 - [**Бинарный поиск**](./binarySearch.js)
+- [**Сортировка выбором**](./selectionSort.js)
