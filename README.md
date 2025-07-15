@@ -6,3 +6,4 @@
 - [**Бинарный поиск**](./binarySearch.js)
 - [**Сортировка выбором**](./selectionSort.js)
 - [**Сортировка пузырьком**](./bubbleSort.js)
+- [**Сортировка вставками**](./insertionSort.js)
