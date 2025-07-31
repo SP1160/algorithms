@@ -9,3 +9,4 @@
 - [**Сортировка вставками**](./insertionSort.js)
 - [**Сортировка слиянием**](./mergeSort.js)
 - [**Быстрая сортировка**](./quickSort.js)
+- [**Поиск в ширину**](./breadthFirstSearch.js)
