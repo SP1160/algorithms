@@ -10,4 +10,5 @@
 - [**Сортировка слиянием**](./mergeSort.js)
 - [**Быстрая сортировка**](./quickSort.js)
 - [**Поиск в ширину**](./breadthFirstSearch.js)
+- [**Поиск в глубину**](./depthFirstSearch.js)
 - [**Алгоритм Дейкстры**](./dijkstra.js)
