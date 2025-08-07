@@ -12,3 +12,4 @@
 - [**Поиск в ширину**](./breadthFirstSearch.js)
 - [**Поиск в глубину**](./depthFirstSearch.js)
 - [**Алгоритм Дейкстры**](./dijkstra.js)
+- [**Деревья. Поиск в ширину и глубину**](./binaryTree.js)
