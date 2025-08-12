@@ -89,7 +89,15 @@ function kruskal(graph) {
   };
 
   // ========== ШАГ 4: ОСНОВНОЙ АЛГОРИТМ ==========
-  const result = []; // Массив для хранения рёбер минимального остовного дерева
+  const result = {}; // Объект для хранения результата в формате смежности
+  let edgeCount = 0; // Счётчик добавленных рёбер
+  let totalWeight = 0; // Общий вес MST
+
+  // Инициализируем результирующий объект пустыми объектами для каждой вершины
+  for (let i = 0; i < vertices.length; i++) {
+    const vertex = vertices[i];
+    result[vertex] = {};
+  }
 
   // Проходим по всем рёбрам в порядке возрастания веса
   // Используем деструктуризацию: [u, v, weight] извлекает элементы из каждого ребра
@@ -102,19 +110,24 @@ function kruskal(graph) {
 
     if (rootU !== rootV) {
       // Вершины в разных множествах - можно безопасно добавить ребро
-      result.push([u, v, weight]); // Добавляем ребро в результат
+
+      // Добавляем ребро в результирующий объект смежности в обоих направлениях
+      result[u][v] = weight;
+      result[v][u] = weight;
+
+      // Увеличиваем счётчики
+      edgeCount++;
+      totalWeight += weight;
+
       union(u, v); // Объединяем множества
 
       // Оптимизация: если уже добавили достаточное количество рёбер (V-1), выходим
       // В остовном дереве для V вершин всегда ровно V-1 рёбер
-      if (result.length === vertices.length - 1) {
+      if (edgeCount === vertices.length - 1) {
         break;
       }
     }
   }
-
-  // Вычисляем общий вес MST
-  const totalWeight = result.reduce((sum, element) => sum + element[2], 0);
 
   return {
     result,
@@ -123,13 +136,11 @@ function kruskal(graph) {
 }
 
 const graph = {
-  a: { b: 2, c: 1 },
-  b: { f: 7 },
-  c: { d: 5, e: 2 },
-  d: { f: 2 },
-  e: { f: 1 },
-  f: { g: 1 },
-  g: {},
+  A: { B: 4, C: 3 },
+  B: { A: 4, C: 1, D: 2 },
+  C: { A: 3, B: 1, D: 4, E: 5 },
+  D: { B: 2, C: 4, E: 1 },
+  E: { C: 5, D: 1 },
 };
 
 console.log(kruskal(graph));
