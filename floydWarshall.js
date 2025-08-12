@@ -1,13 +1,32 @@
 // Алгоритм Флойда-Уоршелла для поиска кратчайших путей между всеми парами вершин
 
 function floydWarshall(graph) {
+  // Получаем все уникальные вершины из графа
+  const vertices = Object.keys(graph);
+  const n = vertices.length;
+
+  // Создаем матрицу смежности из объектного представления
+  const adjMatrix = [];
+  for (let i = 0; i < n; i++) {
+    adjMatrix[i] = [];
+    for (let j = 0; j < n; j++) {
+      if (i === j) {
+        adjMatrix[i][j] = 0; // расстояние от вершины до себя = 0
+      } else if (graph[vertices[i]][vertices[j]] !== undefined) {
+        adjMatrix[i][j] = graph[vertices[i]][vertices[j]]; // прямое соединение
+      } else {
+        adjMatrix[i][j] = Infinity; // нет прямого соединения
+      }
+    }
+  }
+
   // ПЕРЕМЕННАЯ n - количество вершин в графе
   // Получаем из длины первой строки матрицы смежности
-  const n = graph.length;
+  // const n = adjMatrix.length; // уже определено выше
 
   // МАТРИЦА dist - матрица кратчайших расстояний
-  // Изначально копируем исходную матрицу graph
-  const dist = graph.map((row) => [...row]);
+  // Изначально копируем исходную матрицу adjMatrix
+  const dist = adjMatrix.map((row) => [...row]);
   // После этого: dist[i][j] = прямому расстоянию от i к j
 
   // ОСНОВНОЙ АЛГОРИТМ - ТРИ ВЛОЖЕННЫХ ЦИКЛА
@@ -35,16 +54,28 @@ function floydWarshall(graph) {
     }
   }
 
-  return dist;
+  // Преобразуем результат обратно в объектный формат
+  const result = {};
+  for (let i = 0; i < n; i++) {
+    result[vertices[i]] = {};
+    for (let j = 0; j < n; j++) {
+      result[vertices[i]][vertices[j]] = dist[i][j];
+    }
+  }
+
+  return result;
 }
 
 // Пример использования
-const graph = [
-  [0, 5, Infinity, Infinity],
-  [Infinity, 0, 5, 3],
-  [-3, Infinity, 0, Infinity],
-  [2, Infinity, -5, 0],
-];
+const graph = {
+  a: { b: 2, c: 1 },
+  b: { f: 7 },
+  c: { d: 5, e: 2 },
+  d: { f: 2 },
+  e: { f: 1 },
+  f: { g: 1 },
+  g: {},
+};
 
 const shortestPaths = floydWarshall(graph);
 console.log(shortestPaths);
