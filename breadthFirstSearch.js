@@ -1,4 +1,50 @@
 // 1
+// Найти кратчайший путь между двуся вершинами
+
+const findPath = (graph, start, end) => {
+  // graph - граф
+  // start - начальная вершина
+  // end - пункт назначения
+
+  // инициализируем очередь
+  const queue = [];
+  // инициализируем объект для отслеживания посещенных вершин
+  const visited = {};
+  // добавляем start в очередь
+  queue.push(start);
+  // помечаем start как посещенную вершину во избежание повторного добавления в очередь
+  visited[start] = true;
+
+  while (queue.length > 0) {
+    // Извлекаем первый путь из очереди
+    const path = queue.shift();
+    // Берем последнюю вершину из пути
+    const current = path[path.length - 1];
+
+    // проверяем, есть ли текущая вершина в графе
+    if (!graph[current]) continue;
+
+    // Если текущая вершина - конечная, возвращаем путь
+    if (current === end) return path;
+
+    // Перебираем соседей текущей вершины
+    for (const neighbor of graph[current]) {
+      if (!visited[neighbor]) {
+        // Помечаем соседа как посещенного
+        visited[neighbor] = true;
+        // Создаем новый путь, добавляя соседа к текущему пути
+        const newPath = [...path, neighbor];
+        // Добавляем новый путь в очередь
+        queue.push(newPath);
+      }
+    }
+  }
+
+  // Если путь не найден
+  return null;
+};
+
+// 2
 // Определить существует ли путь между двумя узлами в графе
 
 const graph = {
