@@ -7,7 +7,7 @@ const graph = {
   C: ["A", "D", "E"],
   D: ["B", "C", "E"],
   E: ["C", "D", "F"],
-  F: ["F"],
+  F: ["E"],
 };
 
 const depthFirstSearch = (graph, start) => {
