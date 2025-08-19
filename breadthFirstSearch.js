@@ -1,6 +1,15 @@
 // 1
 // Найти кратчайший путь между двуся вершинами
 
+const graph = {
+  A: ["B", "C"],
+  B: ["A", "D"],
+  C: ["A", "D", "E"],
+  D: ["B", "C", "E"],
+  E: ["C", "D", "F"],
+  F: ["E"],
+};
+
 const findPath = (graph, start, end) => {
   // graph - граф
   // start - начальная вершина
@@ -44,16 +53,11 @@ const findPath = (graph, start, end) => {
   return null;
 };
 
+console.log(findPath(graph, "A", "F"));
+console.log(findPath(graph, "A", "G"));
+
 // 2
 // Определить существует ли путь между двумя узлами в графе
-
-const graph = {
-  A: ["B", "C"],
-  B: ["A", "D"],
-  C: ["A", "D", "E"],
-  D: ["B", "C", "E"],
-  E: ["C", "D", "F"],
-};
 
 const bfs = (graph, start, end) => {
   // graph - граф
