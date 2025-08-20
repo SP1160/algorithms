@@ -1,44 +1,12 @@
 /**
  * Функция для нахождения минимального остовного дерева с помощью алгоритма Крускала
- * @param {Object} graph - Граф в формате объекта смежности
- * @returns {Object} - Объект с рёбрами MST и общим весом
  */
-function kruskal(graph) {
-  // ========== ШАГ 1: ПРЕОБРАЗОВАНИЕ ГРАФА В СПИСОК РЁБЕР ==========
-  const edges = [];
-  const vertices = [];
-
-  // Собираем все вершины
-  for (const vertex in graph) {
-    if (vertices.indexOf(vertex) === -1) {
-      vertices.push(vertex);
-    }
-  }
-
-  // Преобразуем объект смежности в список рёбер
-  for (const u in graph) {
-    for (const v in graph[u]) {
-      const weight = graph[u][v];
-      // Добавляем ребро только если оно ещё не было добавлено в обратном направлении
-      let alreadyExists = false;
-      for (let i = 0; i < edges.length; i++) {
-        const edge = edges[i];
-        if ((edge[0] === u && edge[1] === v) || (edge[0] === v && edge[1] === u)) {
-          alreadyExists = true;
-          break;
-        }
-      }
-      if (!alreadyExists) {
-        edges.push([u, v, weight]);
-      }
-    }
-  }
-
-  // ========== ШАГ 2: СОРТИРОВКА РЁБЕР ==========
+function kruskal(edges, vertices) {
+  // ========== ШАГ 1: СОРТИРОВКА РЁБЕР ==========
   // Сортируем все рёбра по возрастанию веса
   edges.sort((a, b) => a[2] - b[2]);
 
-  // ========== ШАГ 3: ИНИЦИАЛИЗАЦИЯ DSU (Disjoint Set Union) ==========
+  // ========== ШАГ 2: ИНИЦИАЛИЗАЦИЯ DSU (Disjoint Set Union) ==========
   // Создаём структуру данных "Система непересекающихся множеств"
   const parent = {};
 
@@ -88,7 +56,7 @@ function kruskal(graph) {
     }
   };
 
-  // ========== ШАГ 4: ОСНОВНОЙ АЛГОРИТМ ==========
+  // ========== ШАГ 3: ОСНОВНОЙ АЛГОРИТМ ==========
   const result = {}; // Объект для хранения результата в формате смежности
   let edgeCount = 0; // Счётчик добавленных рёбер
   let totalWeight = 0; // Общий вес MST
@@ -135,12 +103,15 @@ function kruskal(graph) {
   };
 }
 
-const graph = {
-  A: { B: 4, C: 3 },
-  B: { A: 4, C: 1, D: 2 },
-  C: { A: 3, B: 1, D: 4, E: 5 },
-  D: { B: 2, C: 4, E: 1 },
-  E: { C: 5, D: 1 },
-};
+const vertices = ["A", "B", "C", "D", "E"];
+const edges = [
+  ["A", "B", 4],
+  ["A", "C", 3],
+  ["B", "C", 1],
+  ["B", "D", 2],
+  ["C", "D", 4],
+  ["C", "E", 5],
+  ["D", "E", 1],
+];
 
-console.log(kruskal(graph));
+console.log(kruskal(edges, vertices));
